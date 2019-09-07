@@ -74,8 +74,43 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void fuelCost() {
+    public void fuelCost_Single_Plain_Cleared_NoVisiting() {
+        List<List<Block>> siteMap = new ArrayList<>();
 
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
+        siteMap.get(0).get(0).setCleaned(true);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(1,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Plain_Cleared_Visiting1() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
+        siteMap.get(0).get(0).setCleaned(true);
+        siteMap.get(0).get(0).setVisitingTimesAfterCleaned(1);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(2,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Plain_Unclear() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
+        siteMap.get(0).get(0).setCleaned(false);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(0,cost.getTotalCost());
     }
 
     @Test
