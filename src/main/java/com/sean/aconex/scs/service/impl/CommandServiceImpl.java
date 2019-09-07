@@ -1,11 +1,15 @@
 package com.sean.aconex.scs.service.impl;
 
 import com.sean.aconex.scs.model.Block;
+import com.sean.aconex.scs.model.BlockType;
 import com.sean.aconex.scs.model.Direction;
 import com.sean.aconex.scs.model.Position;
 import com.sean.aconex.scs.service.CommandService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandServiceImpl implements CommandService {
 
@@ -26,10 +30,51 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Position advance(List<List<Block>> siteMap, Position currentPosition, int steps) {
+    public Position advance(final List<List<Block>> siteMap, Position currentPosition, int steps) {
         Position stop = new Position(currentPosition);
 
-        // TODO
+        boolean quit = false;
+
+        List<Block> blocks = getAdvanceBlocks(siteMap, currentPosition);
+
+        if(blocks.isEmpty()){
+            // no blocks to advance, immediately boundary quit
+            quit = true;
+        }
+
+        for(int i =0; i < steps; i ++){
+            if(i >= blocks.size()){
+                // reach boundary
+                quit = true;
+                break;
+            }
+
+            oneMove(stop);
+
+            Block block = blocks.get(i);
+            if(block.isCleaned()){
+                // visiting a cleaned block
+                block.setVisitingTimesAfterCleaned(block.getVisitingTimesAfterCleaned()+1);
+            } else{
+                // to clean : first time visit
+                block.setCleaned(true);
+            }
+
+            if(i==steps-1){
+                // end of advance
+                block.setStoppedWhenCleaning(true);
+            }
+
+            if(BlockType.PRESERVED_TREE.equals(block.getBlockType())){
+                // preserved tree quit
+                quit = true;
+                break;
+            }
+        }
+
+        if(quit)
+            quit();
+
         return stop;
     }
 
@@ -37,6 +82,79 @@ public class CommandServiceImpl implements CommandService {
     public void quit() {
 
         // TODO
+
+    }
+
+    public void oneMove(Position position){
+        switch (position.getDirection()){
+            case NORTH:
+                position.setY(position.getY()-1);
+                break;
+            case EAST:
+                position.setX(position.getX()+1);
+                break;
+            case SOUTH:
+                position.setY(position.getY()+1);
+                break;
+            case WEST:
+                position.setX(position.getX()-1);
+                break;
+        }
+    }
+
+    // get advance blocks to boundary, excluding current block stopped
+    public List<Block> getAdvanceBlocks(List<List<Block>> siteMap, Position position){
+        List<Block> blocks = new ArrayList<>();
+
+        switch (position.getDirection()){
+            case NORTH:
+                for (List<Block> blockList : siteMap) {
+                    blocks.add(blockList.get(position.getX()));
+                }
+                return filterAdvanceBlocks(blocks, position.getY(), true);
+
+            case EAST:
+                blocks = siteMap.get(position.getY());
+                return filterAdvanceBlocks(blocks,position.getX(), false);
+
+            case SOUTH:
+                for (List<Block> blockList : siteMap) {
+                    blocks.add(blockList.get(position.getX()));
+                }
+                return filterAdvanceBlocks(blocks,position.getY(),false);
+
+            case WEST:
+                blocks = siteMap.get(position.getY());
+                return filterAdvanceBlocks(blocks,position.getX(), true);
+
+                default:
+                    throw new RuntimeException("unsupported direction");
+        }
+    }
+
+    public List<Block> filterAdvanceBlocks(List<Block> blocks, int index, boolean reverse){
+
+        if(index < 0){
+            // initial position
+            index = 0;
+        }
+
+        if(index >= blocks.size())
+            return new ArrayList<>();
+
+        // not reverse, get sublist without current position
+        if(!reverse){
+            if(index == blocks.size())
+                return new ArrayList<>();
+            return blocks.subList(index+1, blocks.size());
+        }
+
+        // reverse, get sublist without current position
+        List<Block> subBlocks = new ArrayList<>();
+        for(int i = index-1; i>=0 ; i--){
+            subBlocks.add(blocks.get(i));
+        }
+        return subBlocks;
 
     }
 }

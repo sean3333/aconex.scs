@@ -49,9 +49,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.left(currentPosition);
 
-        assertEquals(newPosition.getX(),5);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.WEST);
+        assertEquals(5,newPosition.getX());
+        assertEquals(0,newPosition.getY());
+        assertEquals(Direction.WEST, newPosition.getDirection() );
     }
 
     @Test
@@ -63,9 +63,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.right(currentPosition);
 
-        assertEquals(newPosition.getX(),5);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.EAST);
+        assertEquals(5,newPosition.getX(),5);
+        assertEquals(0,newPosition.getY(), 0);
+        assertEquals(Direction.EAST,newPosition.getDirection());
     }
 
     @Test
@@ -80,9 +80,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapX, currentPosition, 2);
 
-        assertEquals(newPosition.getX(),1);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.EAST);
+        assertEquals(1,newPosition.getX());
+        assertEquals(0,newPosition.getY());
+        assertEquals(Direction.EAST,newPosition.getDirection());
     }
 
     @Test
@@ -97,9 +97,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapX, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),3);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.EAST);
+        assertEquals(3,newPosition.getX(),3);
+        assertEquals(0,newPosition.getY(), 0);
+        assertEquals(Direction.EAST,newPosition.getDirection());
     }
 
     @Test
@@ -113,9 +113,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapX, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.NORTH);
+        assertEquals(0,newPosition.getX());
+        assertEquals(0,newPosition.getY());
+        assertEquals(Direction.NORTH,newPosition.getDirection() );
     }
 
     @Test
@@ -131,9 +131,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapX, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 0);
-        assertEquals(newPosition.getDirection(), Direction.WEST);
+        assertEquals(0,newPosition.getX());
+        assertEquals(0,newPosition.getY());
+        assertEquals(Direction.WEST, newPosition.getDirection());
     }
 
     @Test
@@ -152,9 +152,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapY, currentPosition, 2);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 2);
-        assertEquals(newPosition.getDirection(), Direction.NORTH);
+        assertEquals(0,newPosition.getX());
+        assertEquals(2,newPosition.getY());
+        assertEquals(Direction.NORTH, newPosition.getDirection() );
 
     }
 
@@ -173,9 +173,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapY, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 1);
-        assertEquals(newPosition.getDirection(), Direction.NORTH);
+        assertEquals(0,newPosition.getX());
+        assertEquals(1, newPosition.getY());
+        assertEquals(Direction.NORTH,newPosition.getDirection());
     }
 
     @Test
@@ -189,9 +189,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapY, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 4);
-        assertEquals(newPosition.getDirection(), Direction.WEST);
+        assertEquals(0,newPosition.getX());
+        assertEquals(4, newPosition.getY());
+        assertEquals(Direction.WEST, newPosition.getDirection() );
     }
 
     @Test
@@ -209,9 +209,9 @@ public class CommandServiceImplTest {
 
         Position newPosition = commandService.advance(siteMapY, currentPosition, 5);
 
-        assertEquals(newPosition.getX(),0);
-        assertEquals(newPosition.getY(), 4);
-        assertEquals(newPosition.getDirection(), Direction.SOUTH);
+        assertEquals(0, newPosition.getX());
+        assertEquals(4, newPosition.getY());
+        assertEquals(Direction.SOUTH, newPosition.getDirection());
     }
 
     @Test

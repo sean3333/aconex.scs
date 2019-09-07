@@ -41,7 +41,7 @@ public interface CommandService {
      * @param steps steps to moving forwards
      * @return new position
      */
-    Position advance(List<List<Block>> siteMap, Position currentPosition, int steps);
+    Position advance(final List<List<Block>> siteMap, Position currentPosition, int steps);
 
     /**
      * end the simulation.

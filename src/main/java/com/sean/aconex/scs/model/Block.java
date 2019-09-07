@@ -15,6 +15,7 @@ public class Block {
 
     private int visitingTimesAfterCleaned = 0;
 
+    // used to indicate whether scratched by removable tree
     private boolean stoppedWhenCleaning = false;
 
     public boolean isCleaned() {
