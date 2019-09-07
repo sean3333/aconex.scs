@@ -47,16 +47,9 @@ public class CommandServiceImpl implements CommandService {
                 break;
             }
 
-            oneMove(stop);
-
             Block block = blocks.get(i);
-            if(block.isCleaned()){
-                // visiting a cleaned block
-                block.setVisitingTimesAfterCleaned(block.getVisitingTimesAfterCleaned()+1);
-            } else{
-                // to clean : first time visit
-                block.setCleaned(true);
-            }
+
+            oneMove(stop, block);
 
             if(i==steps-1){
                 // end of advance
@@ -81,9 +74,19 @@ public class CommandServiceImpl implements CommandService {
 
         // TODO
 
+//        System.exit(0);
     }
 
-    public void oneMove(Position position){
+    public void oneMove(Position position, Block block){
+
+        if(block.isCleaned()){
+            // visiting a cleaned block
+            block.setVisitingTimesAfterCleaned(block.getVisitingTimesAfterCleaned()+1);
+        } else{
+            // to clean : first time visit
+            block.setCleaned(true);
+        }
+
         switch (position.getDirection()){
             case NORTH:
                 position.setY(position.getY()-1);
@@ -131,11 +134,6 @@ public class CommandServiceImpl implements CommandService {
     }
 
     public List<Block> filterAdvanceBlocks(List<Block> blocks, int index, boolean reverse){
-
-        if(index < 0){
-            // initial position
-            index = 0;
-        }
 
         if(index >= blocks.size())
             return new ArrayList<>();

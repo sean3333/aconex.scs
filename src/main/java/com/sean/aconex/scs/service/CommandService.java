@@ -34,7 +34,8 @@ public interface CommandService {
     Position right(Position currentPosition);
 
     /**
-     * execute advance command with steps and clean visited blocks
+     * execute advance command with steps and clear visited blocks
+     * if the block is already cleared, should increase the visiting times by 1
      *
      * @param siteMap site map to do the advance command
      * @param currentPosition
