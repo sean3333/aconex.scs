@@ -1,5 +1,6 @@
 package com.sean.aconex.scs.service.impl;
 
+import com.sean.aconex.scs.constant.BlockType;
 import com.sean.aconex.scs.constant.Command;
 import com.sean.aconex.scs.constant.CostType;
 import com.sean.aconex.scs.model.Block;
@@ -26,7 +27,19 @@ public class CostCalculationServiceImpl implements CostCalculationService {
 
     @Override
     public Cost unclearedBlocks(List<List<Block>> siteMap) {
-        return null;
+        Cost cost = new Cost();
+        cost.setCostType(CostType.UNCLEARED_BLOCK);
+
+        int unclearedBlocks = 0;
+        for (List<Block> blocks : siteMap) {
+            unclearedBlocks += blocks.stream()
+                    .filter(b->(!b.isCleaned() && !BlockType.PRESERVED_TREE.equals(b.getBlockType())))
+                    .count();
+        }
+
+        cost.setUnit(unclearedBlocks);
+        setTotalCost(cost);
+        return cost;
     }
 
     @Override

@@ -12,6 +12,13 @@ public interface CostCalculationService {
 
     Cost fuelCost(List<List<Block>> siteMap);
 
+    /**
+     * calculate uncleared blocks.
+     * needs to exclude preserved tree blocks
+     *
+     * @param siteMap
+     * @return
+     */
     Cost unclearedBlocks(List<List<Block>> siteMap);
 
     Cost destructionOfProtectedTree(List<List<Block>> siteMap);
