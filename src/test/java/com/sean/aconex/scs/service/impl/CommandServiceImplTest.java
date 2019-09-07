@@ -133,8 +133,8 @@ public class CommandServiceImplTest {
         assertEquals(Direction.EAST,newPosition.getDirection());
 
         // check stop
-        assertTrue(siteMapX.get(0).get(1).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(3).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(4).isStoppedWhenCleaning());
@@ -173,7 +173,6 @@ public class CommandServiceImplTest {
         assertEquals(Direction.EAST,newPosition.getDirection());
 
         // check stop
-//        assertTrue(siteMapX.get(0).get(3).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
@@ -215,7 +214,6 @@ public class CommandServiceImplTest {
         assertEquals(Direction.EAST,newPosition.getDirection());
 
         // check stop
-//        assertTrue(siteMapX.get(0).get(3).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
         assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
@@ -253,7 +251,12 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.NORTH,newPosition.getDirection() );
 
-        // TODO check stop
+        // check stop
+        assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(3).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(4).isStoppedWhenCleaning());
 
         // check clear and visiting times
         for (Block block : siteMapX.get(0)) {
@@ -283,13 +286,12 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection());
 
-        // TODO: will stop at boundary block?
-        // check stop
-//        assertTrue(siteMapX.get(0).get(3).isStoppedWhenCleaning());
-//        assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
-//        assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
-//        assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
-//        assertFalse(siteMapX.get(0).get(4).isStoppedWhenCleaning());
+         // check stop
+        assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(3).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(4).isStoppedWhenCleaning());
 
         // check clear
         assertEquals(true,siteMapX.get(0).get(0).isCleaned());
@@ -326,7 +328,12 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection());
 
-        // TODO check stop
+        // check stop
+        assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(1).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(3).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(2).isStoppedWhenCleaning());
+        assertFalse(siteMapX.get(0).get(4).isStoppedWhenCleaning());
 
         // check clear
         assertEquals(true,siteMapX.get(0).get(0).isCleaned());
@@ -411,9 +418,9 @@ public class CommandServiceImplTest {
         assertEquals(Direction.NORTH, newPosition.getDirection() );
 
         // check stop
-        assertTrue(siteMapY.get(2).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(2).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(3).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(4).get(0).isStoppedWhenCleaning());
 
@@ -453,7 +460,6 @@ public class CommandServiceImplTest {
         assertEquals(Direction.NORTH,newPosition.getDirection());
 
         // check stop
-//        assertTrue(siteMapY.get(2).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(3).get(0).isStoppedWhenCleaning());
@@ -498,7 +504,6 @@ public class CommandServiceImplTest {
         assertEquals(Direction.NORTH,newPosition.getDirection());
 
         // check stop
-//        assertTrue(siteMapY.get(1).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
         assertFalse(siteMapY.get(2).get(0).isStoppedWhenCleaning());
@@ -536,7 +541,12 @@ public class CommandServiceImplTest {
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection() );
 
-        // TODO check position
+        // check stop
+        assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(2).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(3).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(4).get(0).isStoppedWhenCleaning());
 
         for (List<Block> blocks : siteMapY) {
             // check clear and visiting times
@@ -568,7 +578,12 @@ public class CommandServiceImplTest {
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.SOUTH, newPosition.getDirection());
 
-        // TODO check stop
+        // check stop
+        assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(2).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(3).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(4).get(0).isStoppedWhenCleaning());
 
         // check clear
         assertEquals(false,siteMapY.get(0).get(0).isCleaned());
@@ -607,7 +622,12 @@ public class CommandServiceImplTest {
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.SOUTH, newPosition.getDirection());
 
-        // TODO check stop
+        // check stop
+        assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(1).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(2).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(3).get(0).isStoppedWhenCleaning());
+        assertFalse(siteMapY.get(4).get(0).isStoppedWhenCleaning());
 
         // check clear
         assertEquals(true,siteMapY.get(0).get(0).isCleaned());

@@ -48,13 +48,12 @@ public class CommandServiceImpl implements CommandService {
             }
 
             Block block = blocks.get(i);
-
-            oneMove(stop, block);
-
-            if(i==steps-1){
+            if(i==steps-1 && !block.isCleaned()){
                 // end of advance
                 block.setStoppedWhenCleaning(true);
             }
+
+            oneMove(stop, block);
 
             if(BlockType.PRESERVED_TREE.equals(block.getBlockType())){
                 // preserved tree quit

@@ -81,7 +81,20 @@ public class CostCalculationServiceImpl implements CostCalculationService {
 
     @Override
     public Cost repairPaintDamage(List<List<Block>> siteMap) {
-        return null;
+        Cost cost = new Cost();
+        cost.setCostType(CostType.PAINT_DAMAGE);
+
+        int totalUnit = 0;
+
+        for (List<Block> blocks : siteMap) {
+            totalUnit += blocks.stream()
+                    .filter(b->!b.isStoppedWhenCleaning()&& BlockType.TREE_REMOVABLE.equals(b.getBlockType()))
+                    .count();
+        }
+
+        cost.setUnit(totalUnit);
+        setTotalCost(cost);
+        return cost;
     }
 
     private void setTotalCost(Cost cost){
