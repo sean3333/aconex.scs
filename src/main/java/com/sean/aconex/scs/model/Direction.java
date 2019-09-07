@@ -4,9 +4,13 @@ package com.sean.aconex.scs.model;
  * top is north
  */
 public enum Direction {
+    // facing -y
     NORTH(0),
+    // facing +x
     EAST(1),
+    // facing +y
     SOUTH(2),
+    // facing -x
     WEST(3);
 
     // the index is the reminder of mod 4

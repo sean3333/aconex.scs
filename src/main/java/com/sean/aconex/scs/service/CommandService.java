@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * the axis of site map:
- * * zero point (starting point) starts from top left
+ * * zero point starts from top left
  * * x is the horizontal direction from left to right
  * * y is the vertical direction from top to bottom
  *
- * so the (x,y) will be as same as index in site map
+ * initial point will be (-1,0) and facing +x
+ * and the (x,y) will be as same as index in site map
  *
  */
 public interface CommandService {

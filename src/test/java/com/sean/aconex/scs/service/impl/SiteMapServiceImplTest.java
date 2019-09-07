@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SiteMapServiceImplTest {
@@ -75,19 +76,8 @@ public class SiteMapServiceImplTest {
     public void testPrintSiteMap() {
         List<List<Block>> siteMap = new ArrayList<>();
 
-        List<Block> row1 = new ArrayList<>();
-        row1.add(new Block(PLAIN_LAND));
-        row1.add(new Block(ROCKY_LAND));
-        row1.add(new Block(TREE_REMOVABLE));
-        row1.add(new Block(PRESERVED_TREE));
-        siteMap.add(row1);
-
-        List<Block> row2 = new ArrayList<>();
-        row2.add(new Block(ROCKY_LAND));
-        row2.add(new Block(ROCKY_LAND));
-        row2.add(new Block(TREE_REMOVABLE));
-        row2.add(new Block(PRESERVED_TREE));
-        siteMap.add(row2);
+        siteMap.add(Arrays.asList(new Block(PLAIN_LAND),new Block(ROCKY_LAND),new Block(TREE_REMOVABLE),new Block(PRESERVED_TREE)));
+        siteMap.add(Arrays.asList(new Block(ROCKY_LAND),new Block(ROCKY_LAND),new Block(TREE_REMOVABLE),new Block(PRESERVED_TREE)));
 
         siteMapService.printSiteMap(siteMap);
     }
