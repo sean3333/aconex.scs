@@ -1,4 +1,4 @@
-package com.sean.aconex.scs.model;
+package com.sean.aconex.scs.constant;
 
 /**
  * top is north

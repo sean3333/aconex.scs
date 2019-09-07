@@ -1,5 +1,7 @@
 package com.sean.aconex.scs.model;
 
+import com.sean.aconex.scs.constant.Direction;
+
 public class Position {
 
     public Position(){}

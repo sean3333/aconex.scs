@@ -3,7 +3,7 @@ package com.sean.aconex.scs.service.impl;
 import com.sean.aconex.scs.constant.ScsConstants;
 import com.sean.aconex.scs.service.SiteMapService;
 import com.sean.aconex.scs.model.Block;
-import com.sean.aconex.scs.model.BlockType;
+import com.sean.aconex.scs.constant.BlockType;
 
 import java.io.IOException;
 import java.nio.file.Files;

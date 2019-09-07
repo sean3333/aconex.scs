@@ -4,8 +4,8 @@ import com.sean.aconex.scs.service.SiteMapService;
 import com.sean.aconex.scs.model.Block;
 import static org.junit.Assert.*;
 
-import com.sean.aconex.scs.model.BlockType;
-import static com.sean.aconex.scs.model.BlockType.*;
+import com.sean.aconex.scs.constant.BlockType;
+import static com.sean.aconex.scs.constant.BlockType.*;
 
 import org.junit.Test;
 

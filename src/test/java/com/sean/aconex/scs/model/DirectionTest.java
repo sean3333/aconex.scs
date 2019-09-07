@@ -1,5 +1,6 @@
 package com.sean.aconex.scs.model;
 
+import com.sean.aconex.scs.constant.Direction;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

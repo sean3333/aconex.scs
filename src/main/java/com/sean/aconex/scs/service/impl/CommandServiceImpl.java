@@ -1,15 +1,13 @@
 package com.sean.aconex.scs.service.impl;
 
 import com.sean.aconex.scs.model.Block;
-import com.sean.aconex.scs.model.BlockType;
-import com.sean.aconex.scs.model.Direction;
+import com.sean.aconex.scs.constant.BlockType;
+import com.sean.aconex.scs.constant.Direction;
 import com.sean.aconex.scs.model.Position;
 import com.sean.aconex.scs.service.CommandService;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandServiceImpl implements CommandService {
 

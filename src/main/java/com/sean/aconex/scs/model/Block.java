@@ -1,6 +1,8 @@
 package com.sean.aconex.scs.model;
 
 
+import com.sean.aconex.scs.constant.BlockType;
+
 public class Block {
 
     public Block(){}
