@@ -8,5 +8,5 @@ public class ScsConstants {
     public static final String TITLE_COMMAND = "The simulation has ended at your request. These are the commands you issued:";
     public static final String TITLE_COST = "The costs for this land clearing operation were:";
     public static final String THANKS = "Thankyou for using the Aconex site clearing simulator.";
-
+    public static final String COMMAND = "(l)eft, (r)ight, (a)dvance <n>, (q)uit: ";
 }

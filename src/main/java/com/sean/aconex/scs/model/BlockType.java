@@ -1,6 +1,6 @@
 package com.sean.aconex.scs.model;
 
-public enum SiteType {
+public enum BlockType {
     PLAIN_LAND("o"),
     ROCKY_LAND("r"),
     TREE_REMOVABLE("t"),
@@ -8,7 +8,7 @@ public enum SiteType {
 
     private String shortName;
 
-    SiteType(String shortName){
+    BlockType(String shortName){
         this.shortName = shortName;
     }
 
@@ -16,10 +16,10 @@ public enum SiteType {
         return shortName;
     }
 
-    public static SiteType getSiteType(String shortName){
-        for (SiteType siteType : SiteType.values()) {
-            if(siteType.shortName.equals(shortName))
-                return siteType;
+    public static BlockType getBlockType(String shortName){
+        for (BlockType blockType : BlockType.values()) {
+            if(blockType.shortName.equals(shortName))
+                return blockType;
         }
         return null;
     }

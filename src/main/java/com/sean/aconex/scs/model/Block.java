@@ -1,14 +1,15 @@
 package com.sean.aconex.scs.model;
 
-public class Site {
 
-    public Site(){}
+public class Block {
 
-    public Site(SiteType siteType){
-        this.siteType = siteType;
+    public Block(){}
+
+    public Block(BlockType blockType){
+        this.blockType = blockType;
     }
 
-    private SiteType siteType;
+    private BlockType blockType;
 
     private boolean cleaned = false;
 
@@ -40,11 +41,11 @@ public class Site {
         this.stoppedWhenCleaning = stoppedWhenCleaning;
     }
 
-    public SiteType getSiteType() {
-        return siteType;
+    public BlockType getBlockType() {
+        return blockType;
     }
 
-    public void setSiteType(SiteType siteType) {
-        this.siteType = siteType;
+    public void setBlockType(BlockType blockType) {
+        this.blockType = blockType;
     }
 }

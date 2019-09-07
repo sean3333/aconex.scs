@@ -1,13 +1,12 @@
 package com.sean.aconex.scs.service.impl;
 
 import com.sean.aconex.scs.service.SiteMapService;
-import com.sean.aconex.scs.model.Site;
+import com.sean.aconex.scs.model.Block;
 import static org.junit.Assert.*;
 
-import com.sean.aconex.scs.model.SiteType;
-import static com.sean.aconex.scs.model.SiteType.*;
+import com.sean.aconex.scs.model.BlockType;
+import static com.sean.aconex.scs.model.BlockType.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,6 +18,15 @@ public class SiteMapServiceImplTest {
 
     private SiteMapService siteMapService = new SiteMapServiceImpl();
 
+    /**
+     * create a site map from file
+     * file contains below lines:
+     * ootooooooo
+     * oooooooToo
+     * rrrooooToo
+     * rrrroooooo
+     * rrrrrtoooo
+     */
     @Test
     public void testCreateSiteMap() {
 
@@ -28,50 +36,57 @@ public class SiteMapServiceImplTest {
         File f = new File(file.getFile());
         System.out.println(f.getAbsolutePath());
 
-        List<List<Site>> siteMap = siteMapService.createSiteMap(f.getAbsolutePath());
+        List<List<Block>> siteMap = siteMapService.createSiteMap(f.getAbsolutePath());
 
-        SiteType[] row1 = new SiteType[]{
+        BlockType[] row1 = new BlockType[]{
                 PLAIN_LAND,PLAIN_LAND,TREE_REMOVABLE,PLAIN_LAND,PLAIN_LAND,
                 PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND};
-        assertArrayEquals(row1, siteMap.get(0).stream().map(Site::getSiteType).toArray());
+        assertArrayEquals(row1, siteMap.get(0).stream().map(Block::getBlockType).toArray());
 
-        SiteType[] row2 = new SiteType[]{
+        BlockType[] row2 = new BlockType[]{
                 PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,
                 PLAIN_LAND,PLAIN_LAND,PRESERVED_TREE,PLAIN_LAND,PLAIN_LAND};
-        assertArrayEquals(row2, siteMap.get(1).stream().map(Site::getSiteType).toArray());
+        assertArrayEquals(row2, siteMap.get(1).stream().map(Block::getBlockType).toArray());
 
-        SiteType[] row3 = new SiteType[]{
+        BlockType[] row3 = new BlockType[]{
                 ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,PLAIN_LAND,PLAIN_LAND,
                 PLAIN_LAND,PLAIN_LAND,PRESERVED_TREE,PLAIN_LAND,PLAIN_LAND};
-        assertArrayEquals(row3, siteMap.get(2).stream().map(Site::getSiteType).toArray());
+        assertArrayEquals(row3, siteMap.get(2).stream().map(Block::getBlockType).toArray());
 
-        SiteType[] row4 = new SiteType[]{
+        BlockType[] row4 = new BlockType[]{
                 ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,PLAIN_LAND,
                 PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND};
-        assertArrayEquals(row4, siteMap.get(3).stream().map(Site::getSiteType).toArray());
+        assertArrayEquals(row4, siteMap.get(3).stream().map(Block::getBlockType).toArray());
 
-        SiteType[] row5 = new SiteType[]{
+        BlockType[] row5 = new BlockType[]{
                 ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,ROCKY_LAND,
                 TREE_REMOVABLE,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND,PLAIN_LAND};
-        assertArrayEquals(row5, siteMap.get(4).stream().map(Site::getSiteType).toArray());
+        assertArrayEquals(row5, siteMap.get(4).stream().map(Block::getBlockType).toArray());
     }
 
+    /**
+     * test print a site map
+     * expected result:
+     * o r t T
+     * r r t T
+     *
+     */
     @Test
     public void testPrintSiteMap() {
-        List<List<Site>> siteMap = new ArrayList<>();
+        List<List<Block>> siteMap = new ArrayList<>();
 
-        List<Site> row1 = new ArrayList<>();
-        row1.add(new Site(PLAIN_LAND));
-        row1.add(new Site(ROCKY_LAND));
-        row1.add(new Site(TREE_REMOVABLE));
-        row1.add(new Site(PRESERVED_TREE));
+        List<Block> row1 = new ArrayList<>();
+        row1.add(new Block(PLAIN_LAND));
+        row1.add(new Block(ROCKY_LAND));
+        row1.add(new Block(TREE_REMOVABLE));
+        row1.add(new Block(PRESERVED_TREE));
         siteMap.add(row1);
 
-        List<Site> row2 = new ArrayList<>();
-        row2.add(new Site(ROCKY_LAND));
-        row2.add(new Site(ROCKY_LAND));
-        row2.add(new Site(TREE_REMOVABLE));
-        row2.add(new Site(PRESERVED_TREE));
+        List<Block> row2 = new ArrayList<>();
+        row2.add(new Block(ROCKY_LAND));
+        row2.add(new Block(ROCKY_LAND));
+        row2.add(new Block(TREE_REMOVABLE));
+        row2.add(new Block(PRESERVED_TREE));
         siteMap.add(row2);
 
         siteMapService.printSiteMap(siteMap);
