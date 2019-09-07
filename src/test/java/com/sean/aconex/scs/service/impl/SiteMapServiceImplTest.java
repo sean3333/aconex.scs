@@ -1,17 +1,18 @@
 package com.sean.aconex.scs.service.impl;
 
 import com.sean.aconex.scs.service.SiteMapService;
-import com.sean.aconex.scs.service.com.sean.aconex.scs.model.Site;
+import com.sean.aconex.scs.model.Site;
 import static org.junit.Assert.*;
 
-import com.sean.aconex.scs.service.com.sean.aconex.scs.model.SiteType;
-import static com.sean.aconex.scs.service.com.sean.aconex.scs.model.SiteType.*;
+import com.sean.aconex.scs.model.SiteType;
+import static com.sean.aconex.scs.model.SiteType.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SiteMapServiceImplTest {
@@ -57,5 +58,22 @@ public class SiteMapServiceImplTest {
 
     @Test
     public void testPrintSiteMap() {
+        List<List<Site>> siteMap = new ArrayList<>();
+
+        List<Site> row1 = new ArrayList<>();
+        row1.add(new Site(PLAIN_LAND));
+        row1.add(new Site(ROCKY_LAND));
+        row1.add(new Site(TREE_REMOVABLE));
+        row1.add(new Site(PRESERVED_TREE));
+        siteMap.add(row1);
+
+        List<Site> row2 = new ArrayList<>();
+        row2.add(new Site(ROCKY_LAND));
+        row2.add(new Site(ROCKY_LAND));
+        row2.add(new Site(TREE_REMOVABLE));
+        row2.add(new Site(PRESERVED_TREE));
+        siteMap.add(row2);
+
+        siteMapService.printSiteMap(siteMap);
     }
 }

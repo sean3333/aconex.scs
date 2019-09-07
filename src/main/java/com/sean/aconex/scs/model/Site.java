@@ -1,4 +1,4 @@
-package com.sean.aconex.scs.service.com.sean.aconex.scs.model;
+package com.sean.aconex.scs.model;
 
 public class Site {
 

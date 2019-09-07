@@ -1,8 +1,9 @@
 package com.sean.aconex.scs.service.impl;
 
+import com.sean.aconex.scs.constant.ScsConstants;
 import com.sean.aconex.scs.service.SiteMapService;
-import com.sean.aconex.scs.service.com.sean.aconex.scs.model.Site;
-import com.sean.aconex.scs.service.com.sean.aconex.scs.model.SiteType;
+import com.sean.aconex.scs.model.Site;
+import com.sean.aconex.scs.model.SiteType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,6 +33,11 @@ public class SiteMapServiceImpl implements SiteMapService {
     }
 
     public void printSiteMap(List<List<Site>> siteMap) {
+        System.out.println(ScsConstants.WELCOME + ScsConstants.TITLE_SITEMAP);
+
+        siteMap.forEach(row->System.out.println(
+                row.stream().map(s->s.getSiteType().getShortName())
+                        .collect(Collectors.joining(" "))));
 
     }
 }

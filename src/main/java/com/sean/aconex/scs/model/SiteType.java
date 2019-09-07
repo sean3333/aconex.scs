@@ -1,4 +1,4 @@
-package com.sean.aconex.scs.service.com.sean.aconex.scs.model;
+package com.sean.aconex.scs.model;
 
 public enum SiteType {
     PLAIN_LAND("o"),
@@ -12,9 +12,13 @@ public enum SiteType {
         this.shortName = shortName;
     }
 
-    public static SiteType getSiteType(String shortname){
+    public String getShortName() {
+        return shortName;
+    }
+
+    public static SiteType getSiteType(String shortName){
         for (SiteType siteType : SiteType.values()) {
-            if(siteType.shortName.equals(shortname))
+            if(siteType.shortName.equals(shortName))
                 return siteType;
         }
         return null;
