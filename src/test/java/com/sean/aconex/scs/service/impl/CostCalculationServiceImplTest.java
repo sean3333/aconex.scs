@@ -74,7 +74,7 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void fuelCost_Single_Plain_Cleared_NoVisiting() {
+    public void fuelCost_Single_Plain_Cleared_NotVisited() {
         List<List<Block>> siteMap = new ArrayList<>();
 
         siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
@@ -87,7 +87,7 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void fuelCost_Single_Plain_Cleared_Visiting1() {
+    public void fuelCost_Single_Plain_Cleared_VisitedOnce() {
         List<List<Block>> siteMap = new ArrayList<>();
 
         siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
@@ -98,6 +98,144 @@ public class CostCalculationServiceImplTest {
 
         assertEquals(CostType.FUEL, cost.getCostType());
         assertEquals(2,cost.getTotalCost());
+    }
+
+
+    @Test
+    public void fuelCost_Single_Rocky_Cleared_NotVisited() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.ROCKY_LAND)));
+        siteMap.get(0).get(0).setCleaned(true);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(2,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Rocky_Cleared_VisitedOnce() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.ROCKY_LAND)));
+        siteMap.get(0).get(0).setCleaned(true);
+        siteMap.get(0).get(0).setVisitingTimesAfterCleaned(1);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(3,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Tree_Cleared_NotVisited() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.get(0).get(0).setCleaned(true);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(2,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Preserved_Cleared() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PRESERVED_TREE)));
+        siteMap.get(0).get(0).setCleaned(true);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(0,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_Single_Tree_Cleared_VisitedOnce() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.get(0).get(0).setCleaned(true);
+        siteMap.get(0).get(0).setVisitingTimesAfterCleaned(3);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(5,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_NoneCleared() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND),new Block(BlockType.ROCKY_LAND),new Block(BlockType.TREE_REMOVABLE),new Block(BlockType.PLAIN_LAND)));
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(0,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_SomeCleared_NoneVisited_SingleRow() {
+        // o r t o
+        // T F T F
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND),new Block(BlockType.ROCKY_LAND),new Block(BlockType.TREE_REMOVABLE),new Block(BlockType.PLAIN_LAND)));
+        siteMap.get(0).get(0).setCleaned(true);
+        siteMap.get(0).get(2).setCleaned(true);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(3,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_SomeCleared_SomeVisitedAgain_SingleColumn() {
+        // o T
+        // r F
+        // t T(+3)
+        // o F
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
+        siteMap.add(Arrays.asList(new Block(BlockType.ROCKY_LAND)));
+        siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND)));
+
+        siteMap.get(0).get(0).setCleaned(true);
+        siteMap.get(2).get(0).setCleaned(true);
+        siteMap.get(2).get(0).setVisitingTimesAfterCleaned(3);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(6,cost.getTotalCost());
+    }
+
+    @Test
+    public void fuelCost_SomeCleared_SomeVisitedAgain_2D() {
+        // o(F)     r(T)
+        // t(T +1)  o(F)
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND),new Block(BlockType.ROCKY_LAND)));
+        siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE),new Block(BlockType.PLAIN_LAND)));
+
+        siteMap.get(0).get(1).setCleaned(true);
+        siteMap.get(1).get(0).setCleaned(true);
+        siteMap.get(1).get(0).setVisitingTimesAfterCleaned(1);
+
+        Cost cost = costCalculationService.fuelCost(siteMap);
+
+        assertEquals(CostType.FUEL, cost.getCostType());
+        assertEquals(5,cost.getTotalCost());
     }
 
     @Test

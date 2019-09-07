@@ -8,6 +8,8 @@ import com.sean.aconex.scs.model.Cost;
 import com.sean.aconex.scs.service.CostCalculationService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CostCalculationServiceImpl implements CostCalculationService {
 
@@ -22,7 +24,27 @@ public class CostCalculationServiceImpl implements CostCalculationService {
 
     @Override
     public Cost fuelCost(List<List<Block>> siteMap) {
-        return null;
+        Cost cost = new Cost();
+        cost.setCostType(CostType.FUEL);
+
+        int totalCost = 0;
+
+        for (List<Block> blocks : siteMap) {
+            List<Block> cleared = blocks.stream().filter(b -> (b.isCleaned() && !BlockType.PRESERVED_TREE.equals(b.getBlockType()))).collect(Collectors.toList());
+
+            // clear consumption
+            totalCost += cleared.stream().collect(Collectors.groupingBy(Block::getBlockType, Collectors.summingInt(b -> b.getBlockType().getCleaningFuelConsumption())))
+                            .values().stream().mapToInt(i->i.intValue()).sum();
+
+            // visiting consumption
+            totalCost += cleared.stream().collect(Collectors.groupingBy(Block::getBlockType, Collectors.summingInt(b->b.getVisitingTimesAfterCleaned()*b.getBlockType().getVisitingFuelConsumption())))
+                            .values().stream().mapToInt(i->i.intValue()).sum();
+
+        }
+
+        cost.setTotalCost(totalCost);
+
+        return cost;
     }
 
     @Override
