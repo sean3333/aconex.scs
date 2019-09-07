@@ -5,9 +5,9 @@ import com.sean.aconex.scs.constant.CostType;
 public class Cost {
     private CostType costType;
 
-    private int unit;
+    private int unit = 0;
 
-    private int totalCost;
+    private int totalCost = 0;
 
     public CostType getCostType() {
         return costType;

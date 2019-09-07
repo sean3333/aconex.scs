@@ -66,7 +66,17 @@ public class CostCalculationServiceImpl implements CostCalculationService {
 
     @Override
     public Cost destructionOfProtectedTree(List<List<Block>> siteMap) {
-        return null;
+        Cost cost = new Cost();
+        cost.setCostType(CostType.DESTRUCTION_PRESERVED_TREE);
+
+        siteMap.stream()
+                .filter(row->row.stream()
+                        .filter(b->b.isCleaned()&& BlockType.PRESERVED_TREE.equals(b.getBlockType()))
+                        .findAny().isPresent())
+                .findAny().ifPresent(b->cost.setUnit(1));
+
+        setTotalCost(cost);
+        return cost;
     }
 
     @Override

@@ -350,7 +350,47 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void destructionOfProtectedTree() {
+    public void destructionOfProtectedTree_SingleBlock_Uncleared() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PRESERVED_TREE)));
+
+        Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
+
+        assertEquals(0,cost.getUnit());
+        assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
+        assertEquals(0,cost.getTotalCost());
+    }
+
+    @Test
+    public void destructionOfProtectedTree_SingleBlock_Cleared() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PRESERVED_TREE)));
+        siteMap.get(0).get(0).setCleaned(true);
+
+        Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
+
+        assertEquals(1,cost.getUnit());
+        assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
+        assertEquals(10,cost.getTotalCost());
+    }
+
+    @Test
+    public void destructionOfProtectedTree_MultipleBlock_Cleared() {
+        // o-cleared T-cleared
+        // r-cleared t-cleared
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND),new Block(BlockType.PRESERVED_TREE)));
+        siteMap.add(Arrays.asList(new Block(BlockType.ROCKY_LAND),new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.forEach(row->row.forEach(b->b.setCleaned(true)));
+
+        Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
+
+        assertEquals(1,cost.getUnit());
+        assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
+        assertEquals(10,cost.getTotalCost());
     }
 
     @Test
