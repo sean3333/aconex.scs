@@ -1,7 +1,9 @@
 package com.sean.aconex.scs.service.impl;
 
+import com.sean.aconex.scs.constant.CommandType;
 import com.sean.aconex.scs.model.Block;
 import com.sean.aconex.scs.constant.Direction;
+import com.sean.aconex.scs.model.Command;
 import com.sean.aconex.scs.model.Position;
 import com.sean.aconex.scs.service.CommandService;
 import org.junit.Before;
@@ -88,6 +90,7 @@ public class CommandServiceImplTest {
         assertEquals(1,newPosition.getX());
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.EAST,newPosition.getDirection());
+        assertFalse(newPosition.isQuit());
 
         // check stop
         assertTrue(siteMapX.get(0).get(1).isStoppedWhenCleaning());
@@ -107,9 +110,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(1).getVisitingTimesAfterCleaned());
 
-
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(0)).quit();
     }
 
     @Test
@@ -131,6 +131,7 @@ public class CommandServiceImplTest {
         assertEquals(1,newPosition.getX());
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.EAST,newPosition.getDirection());
+        assertFalse(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -151,8 +152,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(3).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(4).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(0)).quit();
     }
 
     @Test
@@ -171,6 +170,7 @@ public class CommandServiceImplTest {
         assertEquals(3,newPosition.getX(),3);
         assertEquals(0,newPosition.getY(), 0);
         assertEquals(Direction.EAST,newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -189,8 +189,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(2).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(3).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -212,6 +210,7 @@ public class CommandServiceImplTest {
         assertEquals(3,newPosition.getX(),3);
         assertEquals(0,newPosition.getY(), 0);
         assertEquals(Direction.EAST,newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -231,8 +230,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(3).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(4).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -250,6 +247,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.NORTH,newPosition.getDirection() );
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -264,8 +262,6 @@ public class CommandServiceImplTest {
             assertEquals(0,block.getVisitingTimesAfterCleaned());
         }
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -285,6 +281,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
          // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -304,8 +301,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(1).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -327,6 +322,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(0,newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapX.get(0).get(0).isStoppedWhenCleaning());
@@ -346,9 +342,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapX.get(0).get(2).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(3).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapX.get(0).get(4).getVisitingTimesAfterCleaned());
-
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -371,6 +364,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(2,newPosition.getY());
         assertEquals(Direction.NORTH, newPosition.getDirection() );
+        assertFalse(newPosition.isQuit());
 
         // check stop
         assertTrue(siteMapY.get(2).get(0).isStoppedWhenCleaning());
@@ -390,8 +384,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapY.get(2).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(0)).quit();
     }
 
     @Test
@@ -416,6 +408,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(2,newPosition.getY());
         assertEquals(Direction.NORTH, newPosition.getDirection() );
+        assertFalse(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -435,8 +428,6 @@ public class CommandServiceImplTest {
         assertEquals(6,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapY.get(4).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(0)).quit();
     }
 
     @Test
@@ -458,6 +449,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(1, newPosition.getY());
         assertEquals(Direction.NORTH,newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -477,8 +469,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapY.get(2).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -502,6 +492,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(1, newPosition.getY());
         assertEquals(Direction.NORTH,newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -521,8 +512,6 @@ public class CommandServiceImplTest {
         assertEquals(6,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapY.get(4).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -540,6 +529,7 @@ public class CommandServiceImplTest {
         assertEquals(0,newPosition.getX());
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.WEST, newPosition.getDirection() );
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -554,8 +544,6 @@ public class CommandServiceImplTest {
             assertEquals(0,blocks.get(0).getVisitingTimesAfterCleaned());
         }
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -577,6 +565,7 @@ public class CommandServiceImplTest {
         assertEquals(0, newPosition.getX());
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.SOUTH, newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -596,8 +585,6 @@ public class CommandServiceImplTest {
         assertEquals(0,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
         assertEquals(0,siteMapY.get(4).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
@@ -621,6 +608,7 @@ public class CommandServiceImplTest {
         assertEquals(0, newPosition.getX());
         assertEquals(4, newPosition.getY());
         assertEquals(Direction.SOUTH, newPosition.getDirection());
+        assertTrue(newPosition.isQuit());
 
         // check stop
         assertFalse(siteMapY.get(0).get(0).isStoppedWhenCleaning());
@@ -641,12 +629,17 @@ public class CommandServiceImplTest {
         assertEquals(6,siteMapY.get(3).get(0).getVisitingTimesAfterCleaned());
         assertEquals(1,siteMapY.get(4).get(0).getVisitingTimesAfterCleaned());
 
-        //TODO
-//        Mockito.verify(commandService,Mockito.times(1)).quit();
     }
 
     @Test
     public void quit() {
+        Position currentPosition = new Position();
+
+        assertFalse(currentPosition.isQuit());
+
+        commandService.quit(currentPosition);
+
+        assertTrue(currentPosition.isQuit());
     }
 
     private void setSiteMapXVisited(){
@@ -669,5 +662,13 @@ public class CommandServiceImplTest {
         siteMapY.forEach(row->row.get(0).setCleaned(true));
         siteMapY.get(1).get(0).setCleaned(false);
         siteMapY.get(3).get(0).setVisitingTimesAfterCleaned(5);
+    }
+
+    @Test
+    public void printCommandList(){
+        // turn left, turn right, advance 5, quit
+        List<Command> commands = Arrays.asList(new Command(CommandType.LEFT), new Command(CommandType.RIGHT), new Command(CommandType.ADVANCE, 5), new Command(CommandType.QUIT));
+
+        commandService.printCommandList(commands);
     }
 }

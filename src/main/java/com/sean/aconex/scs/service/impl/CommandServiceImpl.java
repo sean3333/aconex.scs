@@ -1,13 +1,16 @@
 package com.sean.aconex.scs.service.impl;
 
+import com.sean.aconex.scs.constant.CommandType;
 import com.sean.aconex.scs.model.Block;
 import com.sean.aconex.scs.constant.BlockType;
 import com.sean.aconex.scs.constant.Direction;
+import com.sean.aconex.scs.model.Command;
 import com.sean.aconex.scs.model.Position;
 import com.sean.aconex.scs.service.CommandService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandServiceImpl implements CommandService {
 
@@ -63,17 +66,27 @@ public class CommandServiceImpl implements CommandService {
         }
 
         if(quit)
-            quit();
+            quit(stop);
 
         return stop;
     }
 
     @Override
-    public void quit() {
+    public void quit(Position currentPosition) {
+        currentPosition.setQuit(true);
+    }
 
-        // TODO
+    @Override
+    public void printCommandList(List<Command> commandList) {
+        String commands = commandList.stream().map(c->getCommandDisplayName(c)).collect(Collectors.joining(", "));
+        System.out.println(commands);
+    }
 
-//        System.exit(0);
+    private String getCommandDisplayName(Command command){
+        if(CommandType.ADVANCE.equals(command.getCommandType())){
+            return command.getCommandType().getDisplayName()+" "+command.getSteps();
+        }
+        return command.getCommandType().getDisplayName();
     }
 
     public void oneMove(Position position, Block block){

@@ -1,6 +1,7 @@
 package com.sean.aconex.scs.service;
 
 import com.sean.aconex.scs.model.Block;
+import com.sean.aconex.scs.model.Command;
 import com.sean.aconex.scs.model.Position;
 
 import java.util.List;
@@ -48,7 +49,10 @@ public interface CommandService {
      * end the simulation.
      *
      * @return new position
+     * @param currentPosition
      */
-    void quit();
+    void quit(Position currentPosition);
+
+    void printCommandList(List<Command> commandList);
 
 }
