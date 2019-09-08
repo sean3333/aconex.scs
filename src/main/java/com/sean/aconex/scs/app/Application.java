@@ -9,7 +9,7 @@ public class Application {
 
         SimulationService simulationService = new SimulationServiceConsoleImpl();
 
-        simulationService.startSimulation(args[0]);
+        simulationService.startSimulation(((args==null||args.length<1)?"":args[0]));
 
         System.exit(0);
     }
