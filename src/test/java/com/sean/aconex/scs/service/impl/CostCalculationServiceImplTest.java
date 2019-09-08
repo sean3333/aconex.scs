@@ -1,16 +1,15 @@
 package com.sean.aconex.scs.service.impl;
 
 import com.sean.aconex.scs.constant.BlockType;
-import com.sean.aconex.scs.constant.Command;
+import com.sean.aconex.scs.constant.CommandType;
 import com.sean.aconex.scs.constant.CostType;
 import com.sean.aconex.scs.model.Block;
+import com.sean.aconex.scs.model.Command;
 import com.sean.aconex.scs.model.Cost;
 import com.sean.aconex.scs.service.CostCalculationService;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -20,55 +19,55 @@ public class CostCalculationServiceImplTest {
 
     @Test
     public void commandCost_Single_Left() {
-        List<Command> commands = Arrays.asList(Command.LEFT);
+        List<Command> commands = Arrays.asList(new Command(CommandType.LEFT));
 
         Cost cost = costCalculationService.commandCost(commands);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.COMMUNICATION, cost.getCostType());
         assertEquals(1, cost.getTotalCost());
     }
 
     @Test
     public void commandCost_Single_Right() {
-        List<Command> commands = Arrays.asList(Command.RIGHT);
+        List<Command> commands = Arrays.asList(new Command(CommandType.RIGHT));
 
         Cost cost = costCalculationService.commandCost(commands);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.COMMUNICATION, cost.getCostType());
         assertEquals(1, cost.getTotalCost());
     }
 
     @Test
     public void commandCost_Single_Advance() {
-        List<Command> commands = Arrays.asList(Command.ADVANCE);
+        List<Command> commands = Arrays.asList(new Command(CommandType.ADVANCE));
 
         Cost cost = costCalculationService.commandCost(commands);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.COMMUNICATION, cost.getCostType());
         assertEquals(1, cost.getTotalCost());
     }
 
     @Test
     public void commandCost_Single_Quit() {
-        List<Command> commands = Arrays.asList(Command.QUIT);
+        List<Command> commands = Arrays.asList(new Command(CommandType.QUIT));
 
         Cost cost = costCalculationService.commandCost(commands);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.COMMUNICATION, cost.getCostType());
-        assertEquals(1, cost.getTotalCost());
+        assertEquals(0, cost.getTotalCost());
     }
 
     @Test
     public void commandCost_Multiple() {
-        List<Command> commands = Arrays.asList(Command.LEFT, Command.LEFT, Command.RIGHT);
+        List<Command> commands = Arrays.asList(new Command(CommandType.LEFT), new Command(CommandType.RIGHT), new Command(CommandType.ADVANCE), new Command(CommandType.QUIT));
 
         Cost cost = costCalculationService.commandCost(commands);
 
-        assertEquals(3,cost.getUnit());
+        assertEquals(3,cost.getQuantity());
         assertEquals(CostType.COMMUNICATION, cost.getCostType());
         assertEquals(3,cost.getTotalCost());
     }
@@ -260,7 +259,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(0,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(0,cost.getTotalCost());
     }
@@ -274,7 +273,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(3,cost.getTotalCost());
     }
@@ -289,7 +288,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(0,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(0,cost.getTotalCost());
     }
@@ -306,7 +305,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(0,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(0,cost.getTotalCost());
     }
@@ -325,7 +324,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(3,cost.getTotalCost());
     }
@@ -344,7 +343,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.unclearedBlocks(siteMap);
 
-        assertEquals(2,cost.getUnit());
+        assertEquals(2,cost.getQuantity());
         assertEquals(CostType.UNCLEARED_BLOCK, cost.getCostType());
         assertEquals(6,cost.getTotalCost());
     }
@@ -357,7 +356,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
 
-        assertEquals(0,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
         assertEquals(0,cost.getTotalCost());
     }
@@ -371,7 +370,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
         assertEquals(10,cost.getTotalCost());
     }
@@ -388,7 +387,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.destructionOfProtectedTree(siteMap);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.DESTRUCTION_PRESERVED_TREE, cost.getCostType());
         assertEquals(10,cost.getTotalCost());
     }
@@ -402,7 +401,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
 
-        assertEquals(0,cost.getUnit());
+        assertEquals(0,cost.getQuantity());
         assertEquals(CostType.PAINT_DAMAGE, cost.getCostType());
         assertEquals(0,cost.getTotalCost());
     }
@@ -416,7 +415,7 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
 
-        assertEquals(1,cost.getUnit());
+        assertEquals(1,cost.getQuantity());
         assertEquals(CostType.PAINT_DAMAGE, cost.getCostType());
         assertEquals(2,cost.getTotalCost());
     }
@@ -435,8 +434,26 @@ public class CostCalculationServiceImplTest {
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
 
-        assertEquals(2,cost.getUnit());
+        assertEquals(2,cost.getQuantity());
         assertEquals(CostType.PAINT_DAMAGE, cost.getCostType());
         assertEquals(4,cost.getTotalCost());
+    }
+
+    @Test
+    public void calculateTotalCost(){
+        List<Cost> costs = costCalculationService.calculateTotalCost(new ArrayList<>(), new ArrayList<>());
+        assertEquals(CostType.COMMUNICATION,costs.get(0).getCostType());
+        assertEquals(CostType.FUEL,costs.get(1).getCostType());
+        assertEquals(CostType.UNCLEARED_BLOCK,costs.get(2).getCostType());
+        assertEquals(CostType.DESTRUCTION_PRESERVED_TREE,costs.get(3).getCostType());
+        assertEquals(CostType.PAINT_DAMAGE,costs.get(4).getCostType());
+    }
+
+    @Test
+    public void printCost(){
+        List<Cost> costs = Arrays.asList(new Cost(CostType.COMMUNICATION),
+                new Cost(CostType.FUEL), new Cost(CostType.UNCLEARED_BLOCK),
+                new Cost(CostType.DESTRUCTION_PRESERVED_TREE), new Cost(CostType.PAINT_DAMAGE));
+        costCalculationService.printCost(costs);
     }
 }

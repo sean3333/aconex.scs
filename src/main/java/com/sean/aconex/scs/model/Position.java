@@ -19,6 +19,16 @@ public class Position {
 
     private Direction direction = Direction.EAST;
 
+    private boolean quit = false;
+
+    public boolean isQuit() {
+        return quit;
+    }
+
+    public void setQuit(boolean quit) {
+        this.quit = quit;
+    }
+
     public int getX() {
         return x;
     }

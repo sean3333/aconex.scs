@@ -53,6 +53,11 @@ public interface CommandService {
      */
     void quit(Position currentPosition);
 
+    /**
+     * print command list
+     *
+     * @param commandList
+     */
     void printCommandList(List<Command> commandList);
 
 }
