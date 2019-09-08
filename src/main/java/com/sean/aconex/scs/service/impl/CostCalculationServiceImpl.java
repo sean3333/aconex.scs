@@ -90,7 +90,7 @@ public class CostCalculationServiceImpl implements CostCalculationService {
 
         for (List<Block> blocks : siteMap) {
             quantity += blocks.stream()
-                    .filter(b->!b.isStoppedWhenCleaning()&& BlockType.TREE_REMOVABLE.equals(b.getBlockType()))
+                    .filter(b->b.isCleaned()&&!b.isStoppedWhenCleaning()&& BlockType.TREE_REMOVABLE.equals(b.getBlockType()))
                     .count();
         }
 

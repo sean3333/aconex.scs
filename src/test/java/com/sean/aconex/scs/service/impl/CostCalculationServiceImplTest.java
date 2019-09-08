@@ -393,10 +393,11 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void repairPaintDamage_Single_Stopped() {
+    public void repairPaintDamage_Single_ClearedStopped() {
         List<List<Block>> siteMap = new ArrayList<>();
 
         siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.get(0).get(0).setCleaned(true);
         siteMap.get(0).get(0).setStoppedWhenCleaning(true);
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
@@ -407,10 +408,11 @@ public class CostCalculationServiceImplTest {
     }
 
     @Test
-    public void repairPaintDamage_Single_NoneStopped() {
+    public void repairPaintDamage_Single_ClearedNoneStopped() {
         List<List<Block>> siteMap = new ArrayList<>();
 
         siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.get(0).get(0).setCleaned(true);
         siteMap.get(0).get(0).setStoppedWhenCleaning(false);
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
@@ -420,9 +422,22 @@ public class CostCalculationServiceImplTest {
         assertEquals(2,cost.getTotalCost());
     }
 
+    @Test
+    public void repairPaintDamage_Single_NotCleared() {
+        List<List<Block>> siteMap = new ArrayList<>();
+
+        siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE)));
+        siteMap.get(0).get(0).setCleaned(false);
+
+        Cost cost = costCalculationService.repairPaintDamage(siteMap);
+
+        assertEquals(0,cost.getQuantity());
+        assertEquals(CostType.PAINT_DAMAGE, cost.getCostType());
+        assertEquals(0,cost.getTotalCost());
+    }
 
     @Test
-    public void repairPaintDamage_Multiple_2NoneStopped() {
+    public void repairPaintDamage_Multiple_2NoneStopped_AllCleared() {
         // t(not stopped) t(stopped) t(not stopped)
         // o(stopped) r(stopped) T(stopped)
         List<List<Block>> siteMap = new ArrayList<>();
@@ -430,7 +445,8 @@ public class CostCalculationServiceImplTest {
         siteMap.add(Arrays.asList(new Block(BlockType.TREE_REMOVABLE),new Block(BlockType.TREE_REMOVABLE),new Block(BlockType.TREE_REMOVABLE)));
         siteMap.add(Arrays.asList(new Block(BlockType.PLAIN_LAND),new Block(BlockType.ROCKY_LAND),new Block(BlockType.PRESERVED_TREE)));
         siteMap.get(0).get(1).setStoppedWhenCleaning(true);
-        siteMap.get(1).forEach(b->b.setStoppedWhenCleaning(true));
+        siteMap.get(0).forEach(b->b.setCleaned(true));
+        siteMap.get(1).forEach(b->{b.setStoppedWhenCleaning(true);b.setCleaned(true);});
 
         Cost cost = costCalculationService.repairPaintDamage(siteMap);
 
