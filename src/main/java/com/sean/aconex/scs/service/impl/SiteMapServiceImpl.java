@@ -26,7 +26,7 @@ public class SiteMapServiceImpl implements SiteMapService {
                     .collect(Collectors.toList())));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("file ["+fileName+"] can not be opened");
         }
 
         return siteMap;

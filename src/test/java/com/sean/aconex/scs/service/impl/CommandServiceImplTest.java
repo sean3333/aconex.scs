@@ -19,7 +19,7 @@ import java.util.List;
 import static com.sean.aconex.scs.constant.BlockType.*;
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class CommandServiceImplTest {
 
     private CommandService commandService = new CommandServiceImpl();
