@@ -1,8 +1,10 @@
 package com.sean.aconex.scs.model;
 
-
 import com.sean.aconex.scs.constant.BlockType;
 
+/**
+ * the square block of site map
+ */
 public class Block {
 
     public Block(){}

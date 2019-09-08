@@ -34,11 +34,11 @@ public class CostCalculationServiceImpl implements CostCalculationService {
         for (List<Block> blocks : siteMap) {
             List<Block> cleared = blocks.stream().filter(b -> (b.isCleaned() && !BlockType.PRESERVED_TREE.equals(b.getBlockType()))).collect(Collectors.toList());
 
-            // clear consumption
+            // fuel consumption for clearing block
             quantity += cleared.stream().collect(Collectors.groupingBy(Block::getBlockType, Collectors.summingInt(b -> b.getBlockType().getCleaningFuelConsumption())))
                             .values().stream().mapToInt(i->i.intValue()).sum();
 
-            // visiting consumption
+            // fuel consumption for visiting cleared blocks
             quantity += cleared.stream().collect(Collectors.groupingBy(Block::getBlockType, Collectors.summingInt(b->b.getVisitingTimesAfterCleaned()*b.getBlockType().getVisitingFuelConsumption())))
                             .values().stream().mapToInt(i->i.intValue()).sum();
 
@@ -118,7 +118,7 @@ public class CostCalculationServiceImpl implements CostCalculationService {
         System.out.println("Item\t\t\t\t\t\t\tQuantity\tCost");
         costList.forEach(c->System.out.println(c.getCostType().getDisplayName()+"\t\t"+c.getQuantity()+"\t\t"+c.getTotalCost()));
         System.out.println("--------");
-        System.out.println("Total\t\t\t\t\t\t\t\t\t\t"+costList.stream().mapToInt(Cost::getTotalCost).sum());
+        System.out.println("Total\t\t\t\t\t\t\t\t\t"+costList.stream().mapToInt(Cost::getTotalCost).sum());
     }
 
     private void setTotalCost(Cost cost){

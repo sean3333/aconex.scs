@@ -45,7 +45,7 @@ public class SimulationServiceConsoleImpl implements SimulationService {
 
         siteMapService.printSiteMap(siteMap);
 
-        // process command entered
+        // process command entered, until reach quit condition
         System.out.println(ScsConstants.TITLE_START);
 
         Position position = new Position();
@@ -70,7 +70,13 @@ public class SimulationServiceConsoleImpl implements SimulationService {
                     position = commandService.right(position);
                     break;
                 case "a":
-                    int step = Integer.valueOf(command.split(" ")[1]);
+                    int step;
+                    try{
+                        step = Integer.valueOf(command.split(" ")[1]);
+                    } catch (RuntimeException e){
+                        System.out.println("Can not recognized command "+command);
+                        break;
+                    }
                     commandList.add(new Command(CommandType.ADVANCE,step));
                     position = commandService.advance(siteMap,position,step);
                     break;
@@ -79,6 +85,7 @@ public class SimulationServiceConsoleImpl implements SimulationService {
                     commandService.quit(position);
                     break;
                 default:
+                    System.out.println("Can not recognized command "+command);
                     break;
             }
 

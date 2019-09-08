@@ -36,6 +36,7 @@ public class CommandServiceImpl implements CommandService {
 
         boolean quit = false;
 
+        // get all blocks in the forward direction
         List<Block> blocks = getAdvanceBlocks(siteMap, currentPosition);
 
         if(blocks.isEmpty()){
@@ -45,7 +46,7 @@ public class CommandServiceImpl implements CommandService {
 
         for(int i =0; i < steps; i ++){
             if(i >= blocks.size()){
-                // reach boundary
+                // reach boundary quit
                 quit = true;
                 break;
             }
@@ -82,6 +83,7 @@ public class CommandServiceImpl implements CommandService {
         System.out.println(commands);
     }
 
+    // advance command will be displayed as "advance n"
     private String getCommandDisplayName(Command command){
         if(CommandType.ADVANCE.equals(command.getCommandType())){
             return command.getCommandType().getDisplayName()+" "+command.getSteps();
@@ -89,7 +91,8 @@ public class CommandServiceImpl implements CommandService {
         return command.getCommandType().getDisplayName();
     }
 
-    public void oneMove(Position position, Block block){
+    // make one advance move, will change the position and block status
+    private void oneMove(Position position, Block block){
 
         if(block.isCleaned()){
             // visiting a cleaned block
@@ -116,9 +119,10 @@ public class CommandServiceImpl implements CommandService {
     }
 
     // get advance blocks to boundary, excluding current block stopped
-    public List<Block> getAdvanceBlocks(List<List<Block>> siteMap, Position position){
+    private List<Block> getAdvanceBlocks(List<List<Block>> siteMap, Position position){
         List<Block> blocks = new ArrayList<>();
 
+        // get all blocks in the position, then filter out blocks behind and stopping at
         switch (position.getDirection()){
             case NORTH:
                 for (List<Block> blockList : siteMap) {
@@ -145,7 +149,8 @@ public class CommandServiceImpl implements CommandService {
         }
     }
 
-    public List<Block> filterAdvanceBlocks(List<Block> blocks, int index, boolean reverse){
+    // filter out blocks behind, and make blocks in forward order
+    private List<Block> filterAdvanceBlocks(List<Block> blocks, int index, boolean reverse){
 
         if(index >= blocks.size())
             return new ArrayList<>();

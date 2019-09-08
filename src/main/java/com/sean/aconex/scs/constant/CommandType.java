@@ -25,7 +25,7 @@ public enum CommandType {
 
     public static CommandType getCommand(String shortName){
         for (CommandType command : CommandType.values()) {
-            if(command.shortName.equals(shortName))
+            if(command.shortName.equals(shortName.toLowerCase()))
                 return command;
         }
         return null;

@@ -1,11 +1,11 @@
 package com.sean.aconex.scs.constant;
 
 public enum CostType {
-    COMMUNICATION("communication overhead\t\t",1),
-    FUEL("fuel usage\t\t\t\t\t",1),
+    COMMUNICATION("communication overhead\t\t\t",1),
+    FUEL("fuel usage\t\t\t\t",1),
     UNCLEARED_BLOCK("uncleared squares\t\t\t",3),
-    DESTRUCTION_PRESERVED_TREE("destruction of protected tree",10),
-    PAINT_DAMAGE("paint damage to bulldozer\t",2);
+    DESTRUCTION_PRESERVED_TREE("destruction of protected tree\t\t",10),
+    PAINT_DAMAGE("paint damage to bulldozer\t\t",2);
 
     private String displayName;
     private int unitCost;
